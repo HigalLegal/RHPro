@@ -1,4 +1,4 @@
-package com.rhpro.entidades;
+package com.rhpro.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

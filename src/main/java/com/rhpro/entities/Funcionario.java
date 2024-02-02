@@ -1,18 +1,19 @@
-package com.rhpro.entidades;
+package com.rhpro.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Builder
+@Entity
 public class Funcionario {
 
     @Id
@@ -40,8 +41,5 @@ public class Funcionario {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "folha_de_pagamento_id")
     private FolhaDePagamento folhaDePagamento;
-
-
-
 
 }
