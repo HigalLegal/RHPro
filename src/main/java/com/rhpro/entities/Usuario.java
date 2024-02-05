@@ -1,5 +1,5 @@
 package com.rhpro.entities;
-import com.rhpro.entidades.Funcionario;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

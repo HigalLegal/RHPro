@@ -1,7 +1,6 @@
 package com.rhpro.entities;
-import java.time.LocalDateTime;
 
-import com.rhpro.entidades.Funcionario;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

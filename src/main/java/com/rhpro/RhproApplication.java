@@ -1,13 +1,14 @@
 package com.rhpro;
 
-import org.springframework.boot.SpringApplication;
+import com.rhpro.javafx.MainFX;
+import javafx.application.Application;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class RhproApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RhproApplication.class, args);
+		Application.launch(MainFX.class, args);
 	}
 
 }
