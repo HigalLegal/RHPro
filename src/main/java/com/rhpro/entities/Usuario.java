@@ -18,9 +18,6 @@ public class Usuario {
     private Long id;
 
     @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
     private String senha;
 
     @Column(nullable = false)

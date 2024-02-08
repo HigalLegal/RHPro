@@ -21,6 +21,7 @@ public class Licenca {
     private LocalDate data;
 
     @Column (nullable = false, name = "atestado")
+    @Lob
     private byte[] atestado;
 
     @OneToOne

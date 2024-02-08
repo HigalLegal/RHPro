@@ -23,4 +23,12 @@ public class FolhaDePagamento {
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
 
+    public BigDecimal calcularIRF() {
+        return funcionario.getSalarioHora().multiply(porcentagemIRF);
+    }
+
+    public BigDecimal calcularSalarioLiquido() {
+        return funcionario.getSalarioHora().subtract(calcularIRF());
+    }
+
 }

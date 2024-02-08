@@ -1,4 +1,4 @@
-package com.rhpro.dto.inputs;
+package com.rhpro.dto.outputs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,12 +12,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class LicencaInput {
+public class LicencaOutput {
+
+    private Long id;
 
     private LocalDate data;
 
     //é pra ser uma imagem...
     private File atestado;
 
-    private Integer funcionarioId;
+    private String funcionario;
+
 }

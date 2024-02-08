@@ -1,4 +1,4 @@
-package com.rhpro.dto.inputs;
+package com.rhpro.dto.outputs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,14 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UsuarioInput {
+public class UsuarioOutput {
+
+    private Long id;
+
+    private String nome;
 
     private String email;
 
     private String senha;
 
     private Boolean admin;
-
-    private Integer funcionarioId;
 
 }
