@@ -1,6 +1,5 @@
 package com.rhpro.entities;
 
-import com.rhpro.entidades.Funcionario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +21,7 @@ public class Licenca {
     private LocalDate data;
 
     @Column (nullable = false, name = "atestado")
+    @Lob
     private byte[] atestado;
 
     @OneToOne

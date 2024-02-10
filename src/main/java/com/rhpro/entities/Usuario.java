@@ -1,5 +1,5 @@
 package com.rhpro.entities;
-import com.rhpro.entidades.Funcionario;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,9 +16,6 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String email;
 
     @Column(nullable = false)
     private String senha;

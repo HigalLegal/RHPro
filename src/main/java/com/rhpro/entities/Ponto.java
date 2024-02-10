@@ -1,7 +1,9 @@
 package com.rhpro.entities;
-import java.time.LocalDateTime;
 
-import com.rhpro.entidades.Funcionario;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,4 +31,14 @@ public class Ponto {
     @OneToOne
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;
+
+    public BigDecimal calcularHoraTrabalhadaPorDia() {
+        Duration duration = Duration.between(horaChegada, horaSaida);
+        BigDecimal segundosTrabalhados = BigDecimal
+                .valueOf(duration.toSeconds());
+
+        return segundosTrabalhados
+                .divide(BigDecimal.valueOf(3600.0),
+                        2, RoundingMode.HALF_DOWN);
+    }
 }

@@ -1,18 +1,17 @@
-package com.rhpro.dto.inputs;
+package com.rhpro.dto.outputs;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FuncionarioInput {
+public class FuncionarioOutputAll {
+
+    private Long id;
 
     private String nome;
 
@@ -20,14 +19,6 @@ public class FuncionarioInput {
 
     private String emailCorporativo;
 
-    private String cpf;
-
-    private LocalDate dataDeNascimento;
-
-    private BigDecimal salarioHora;
-
-    private BigDecimal porcentagemIRF;
-
+    private String salarioHora;
 
 }
-
