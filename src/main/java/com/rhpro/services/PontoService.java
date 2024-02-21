@@ -15,7 +15,7 @@ public interface PontoService {
 
     void criar(PontoInput pontoInput);
 
-    void atualizar(PontoInput pontoInput);
+    void atualizar(Long id, PontoInput pontoInput);
 
     void deletar(Long id);
     

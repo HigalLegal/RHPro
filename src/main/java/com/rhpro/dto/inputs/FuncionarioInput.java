@@ -26,6 +26,8 @@ public class FuncionarioInput {
 
     private BigDecimal salarioHora;
 
+    private Long folhaDePagamentoID;
+
     private BigDecimal porcentagemIRF;
 
 

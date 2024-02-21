@@ -19,5 +19,5 @@ public class LicencaInput {
     //é pra ser uma imagem...
     private File atestado;
 
-    private Integer funcionarioId;
+    private Long funcionarioId;
 }

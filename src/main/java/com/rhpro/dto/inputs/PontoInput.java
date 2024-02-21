@@ -17,6 +17,6 @@ public class PontoInput {
 
     private LocalDateTime horaSaida;
 
-    private Integer funcionarioId;
+    private Long funcionarioId;
 
 }

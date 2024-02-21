@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -22,7 +23,7 @@ public class PontoOutput {
 
     private LocalTime horaSaida;
 
-    private double horasTrabalhadas;
+    private BigDecimal horasTrabalhadas;
 
     private String funcionario;
 

@@ -1,6 +1,7 @@
 package com.rhpro.services.impl;
 
 import com.rhpro.dto.inputs.FuncionarioInput;
+import com.rhpro.dto.mappers.FuncionarioMapper;
 import com.rhpro.dto.outputs.FuncionarioOutputAll;
 import com.rhpro.dto.outputs.FuncionarioOutputOne;
 import com.rhpro.entities.Funcionario;
@@ -10,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,12 +20,12 @@ public class FuncionarioServiceImpl implements FuncionarioService {
 
     private final FuncionarioRepository funcionarioRepository;
 
-    private final ModelMapper modelMapper;
+    private final FuncionarioMapper funcionarioMapper;
 
     public FuncionarioServiceImpl(FuncionarioRepository funcionarioRepository,
-                                  ModelMapper modelMapper) {
+                                  FuncionarioMapper funcionarioMapper) {
         this.funcionarioRepository = funcionarioRepository;
-        this.modelMapper = modelMapper;
+        this.funcionarioMapper = funcionarioMapper;
     }
 
     @Override
@@ -31,7 +33,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         return funcionarioRepository
                 .findAll()
                 .stream()
-                .map(funcionario -> modelMapper.map(funcionario, FuncionarioOutputAll.class))
+                .map(funcionarioMapper::paraSaida)
                 .collect(Collectors.toList());
     }
 
@@ -44,18 +46,18 @@ public class FuncionarioServiceImpl implements FuncionarioService {
             throw new EntityNotFoundException("Registro inexistente");
         }
 
-        return modelMapper.map(funcionario, FuncionarioOutputOne.class);
+        return funcionarioMapper.paraSaidaAlternativo(funcionario);
     }
 
     @Override
-    public void criar(FuncionarioInput funcionarioInput) {
-        Funcionario funcionario = modelMapper.map(funcionarioInput, Funcionario.class);
+    public void criar(FuncionarioInput funcionarioInput) throws IOException {
+        Funcionario funcionario = funcionarioMapper.paraEntidade(funcionarioInput);
 
         funcionarioRepository.save(funcionario);
     }
 
     @Override
-    public void atualizar(Long id, FuncionarioInput funcionarioInput) {
+    public void atualizar(Long id, FuncionarioInput funcionarioInput) throws IOException {
 
         boolean existente = funcionarioRepository.existsById(id);
 
@@ -64,7 +66,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         }
 
 
-        Funcionario funcionario = modelMapper.map(funcionarioInput, Funcionario.class);
+        Funcionario funcionario = funcionarioMapper.paraEntidade(funcionarioInput);
         funcionario.setId(id);
 
         funcionarioRepository.save(funcionario);
