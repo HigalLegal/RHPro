@@ -1,4 +1,4 @@
-package com.rhpro.javafx.javafx.exemplos;
+package com.rhpro.javafx.exemplos;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

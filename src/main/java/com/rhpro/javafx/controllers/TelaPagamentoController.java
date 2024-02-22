@@ -1,4 +1,4 @@
-package com.rhpro.javafx.javafx.controllers;
+package com.rhpro.javafx.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

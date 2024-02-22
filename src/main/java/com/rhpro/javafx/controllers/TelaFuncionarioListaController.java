@@ -1,4 +1,4 @@
-package com.rhpro.javafx.javafx.controllers;
+package com.rhpro.javafx.controllers;
 
 import java.io.IOException;
 import java.math.BigDecimal;
