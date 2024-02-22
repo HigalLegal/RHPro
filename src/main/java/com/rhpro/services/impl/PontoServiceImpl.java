@@ -7,8 +7,6 @@ import com.rhpro.entities.Ponto;
 import com.rhpro.repositories.PontoRepository;
 import com.rhpro.services.PontoService;
 import jakarta.persistence.EntityNotFoundException;
-import org.modelmapper.ModelMapper;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
