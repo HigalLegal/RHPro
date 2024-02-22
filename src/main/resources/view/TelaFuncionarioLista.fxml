@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="menuFuncionario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rhpro.javafx.controllers.TelaFuncionarioListaController">
+   <children>
+      <AnchorPane prefHeight="401.0" prefWidth="600.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <SVGPath fx:id="buttonHome" content="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1" fill="WHITE" layoutX="20.0" layoutY="362.0" onMouseClicked="#handleHome" style="-fx-scale-x: 2; -fx-scale-y: 2;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+            <ImageView fitHeight="82.0" fitWidth="45.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../rh-scaled.png" />
+               </image>
+            </ImageView>
+            <Separator layoutX="12.0" layoutY="337.0" prefHeight="6.0" prefWidth="32.0" />
+            <Separator layoutX="12.0" layoutY="60.0" prefHeight="6.0" prefWidth="32.0" />
+            <SVGPath fx:id="buttonAdcionar" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm1 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" fill="WHITE" layoutX="17.0" layoutY="148.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+            <SVGPath fx:id="buttonEditar" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zM8.999 17H7v-1.999l5.53-5.522 1.999 1.999L8.999 17zm6.473-6.465-1.999-1.999 1.524-1.523 1.999 1.999-1.524 1.523z" disable="true" fill="WHITE" layoutX="16.0" layoutY="188.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+            <SVGPath fx:id="buttonExcluir" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm.706 13.293-1.414 1.414L12 13.415l-3.292 3.292-1.414-1.414 3.292-3.292-3.292-3.292 1.414-1.414L12 10.587l3.292-3.292 1.414 1.414-3.292 3.292 3.292 3.292z" disable="true" fill="WHITE" layoutX="17.0" layoutY="229.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="55.0" prefHeight="400.0" prefWidth="545.0">
+         <children>
+            <SplitPane dividerPositions="0.49171270718232046" layoutX="264.0" layoutY="69.0" prefHeight="400.0" prefWidth="545.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <TableView fx:id="viewFuncionario" prefHeight="398.0" prefWidth="288.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn fx:id="viewFuncionarioNome" prefWidth="148.0" text="Nome" />
+                            <TableColumn fx:id="viewFuncionarioCpf" prefWidth="115.0" text="CPF" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <Label layoutX="57.0" layoutY="14.0" text="Detalhes do Funcionario">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <GridPane layoutX="9.0" layoutY="60.0" prefHeight="278.0" prefWidth="256.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <Label text="Codigo" />
+                              <Label text="Nome" GridPane.rowIndex="1" />
+                              <Label text="CPF" GridPane.rowIndex="2" />
+                              <Label text="Sobre Nome" GridPane.rowIndex="3" />
+                              <Label text="Email" GridPane.rowIndex="4" />
+                              <Label text="Data de Nascimento" GridPane.rowIndex="5" />
+                              <Label text="Salario" GridPane.rowIndex="6" />
+                              <Label text="IRF" GridPane.rowIndex="7" />
+                              <Label fx:id="tabelaFuncionarioCodigo" text="Label" GridPane.columnIndex="1" />
+                              <Label fx:id="tabelaFuncionarioNome" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Label fx:id="tabelaFuncionarioCpf" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Label fx:id="tabelaFuncionarioSobreNome" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <Label fx:id="tabelaFuncionarioEmail" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label fx:id="tabelaFuncionarioDataNascimento" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <Label fx:id="tabelaFuncionarioSalario" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                              <Label fx:id="tabelaFuncionarioIrf" text="Label" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

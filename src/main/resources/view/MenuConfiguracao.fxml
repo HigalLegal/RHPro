@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="menuConfiguracao" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rhpro.javafx.controllers.MenuConfiguracao">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="55.0" style="-fx-background-color: #000000;">
+         <children>
+            <SVGPath fx:id="buttonHome" content="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1" fill="WHITE" layoutX="20.0" layoutY="362.0" onMouseClicked="#handleHome" style="-fx-scale-x: 2; -fx-scale-y: 2;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+            <ImageView fitHeight="82.0" fitWidth="45.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@rh-scaled.png" />
+               </image>
+            </ImageView>
+            <Separator layoutX="12.0" layoutY="337.0" prefHeight="6.0" prefWidth="32.0" />
+            <Separator layoutX="12.0" layoutY="60.0" prefHeight="6.0" prefWidth="32.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="55.0" prefHeight="400.0" prefWidth="545.0">
+         <children>
+            <CheckBox fx:id="checkPagamento" layoutX="22.0" layoutY="171.0" mnemonicParsing="false" text="Confirmar pagamento?" />
+            <Label layoutX="25.0" layoutY="14.0" text="Configurações">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <CheckBox fx:id="checkMoeda" layoutX="22.0" layoutY="199.0" mnemonicParsing="false" selected="true" text="Usar a moeda como real?" />
+            <CheckBox fx:id="checkEasyMode" layoutX="22.0" layoutY="226.0" mnemonicParsing="false" selected="true" text="Usar modo fácil?" />
+            <Separator layoutX="22.0" layoutY="155.0" prefHeight="0.0" prefWidth="506.0" />
+            <ComboBox fx:id="boxLanguage" layoutX="22.0" layoutY="78.0" prefHeight="25.0" prefWidth="174.0" promptText="Linguagem (PT-BR)" />
+            <Button fx:id="buttonRestaurar" layoutX="418.0" layoutY="361.0" mnemonicParsing="false" text="Restaurar padrões" />
+            <DatePicker fx:id="dateDataSys" layoutX="22.0" layoutY="112.0" promptText="Escolher data atual" />
+            <Button fx:id="buttonSobre" layoutX="363.0" layoutY="361.0" mnemonicParsing="false" text="Sobre" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

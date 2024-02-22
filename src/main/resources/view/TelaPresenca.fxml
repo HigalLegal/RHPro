@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.SVGPath?>
+
+<AnchorPane fx:id="menuPresenca" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rhpro.javafx.controllers.TelaPresencaController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="55.0" style="-fx-background-color: #000000;">
+         <children>
+            <SVGPath fx:id="buttonHome" content="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1" fill="WHITE" layoutX="20.0" layoutY="362.0" onMouseClicked="#handleHome" style="-fx-scale-x: 2; -fx-scale-y: 2;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+            <ImageView fitHeight="82.0" fitWidth="45.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@rh-scaled.png" />
+               </image>
+            </ImageView>
+            <Separator layoutX="12.0" layoutY="337.0" prefHeight="6.0" prefWidth="32.0" />
+            <Separator layoutX="12.0" layoutY="60.0" prefHeight="6.0" prefWidth="32.0" />
+            <SVGPath fx:id="buttonEditar" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zM8.999 17H7v-1.999l5.53-5.522 1.999 1.999L8.999 17zm6.473-6.465-1.999-1.999 1.524-1.523 1.999 1.999-1.524 1.523z" disable="true" fill="WHITE" layoutX="16.0" layoutY="188.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </SVGPath>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="55.0" prefHeight="400.0" prefWidth="545.0">
+         <children>
+            <TableView layoutX="13.0" layoutY="65.0" prefHeight="321.0" prefWidth="519.0">
+              <columns>
+                <TableColumn prefWidth="440.0" text="Nome" />
+                <TableColumn minWidth="0.0" prefWidth="78.0" text="Presença" />
+              </columns>
+            </TableView>
+            <DatePicker fx:id="dateData" layoutX="14.0" layoutY="21.0" promptText="01/01/2000" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
