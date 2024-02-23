@@ -6,10 +6,12 @@ import com.rhpro.entities.FolhaDePagamento;
 import com.rhpro.repositories.FolhaDePagamentoRepository;
 import com.rhpro.services.FolhaDePagamentoService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class FolhaDePagamentoServiceImpl implements FolhaDePagamentoService {
 
     private final FolhaDePagamentoRepository folhaDePagamentoRepository;

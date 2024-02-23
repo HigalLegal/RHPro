@@ -3,10 +3,9 @@ package com.rhpro.dto.mappers.impl;
 import com.rhpro.dto.inputs.PontoInput;
 import com.rhpro.dto.mappers.PontoMapper;
 import com.rhpro.dto.outputs.PontoOutput;
+import com.rhpro.entities.Funcionario;
 import com.rhpro.entities.Ponto;
 import org.springframework.stereotype.Component;
-
-import static com.rhpro.utils.GeradorFuncionario.gerarInstanciaFuncionario;
 
 @Component
 public class PontoMapperImpl implements PontoMapper {
@@ -32,5 +31,8 @@ public class PontoMapperImpl implements PontoMapper {
                 .horasTrabalhadas(entidade.calcularHoraTrabalhadaPorDia())
                 .funcionario(entidade.getFuncionario().getNome())
                 .build();
+    }
+    Funcionario gerarInstanciaFuncionario(Long id) {
+        return Funcionario.builder().id(id).build();
     }
 }

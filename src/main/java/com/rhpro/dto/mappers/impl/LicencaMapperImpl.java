@@ -1,15 +1,17 @@
 package com.rhpro.dto.mappers.impl;
 
 import com.rhpro.dto.inputs.LicencaInput;
+import com.rhpro.dto.mappers.FuncionarioMapper;
 import com.rhpro.dto.mappers.LicencaMapper;
 import com.rhpro.dto.outputs.LicencaOutput;
+import com.rhpro.entities.Funcionario;
 import com.rhpro.entities.Licenca;
 import javafx.scene.image.Image;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
 
-import static com.rhpro.utils.GeradorFuncionario.gerarInstanciaFuncionario;
+
 
 @Component
 public class LicencaMapperImpl implements LicencaMapper {
@@ -34,7 +36,10 @@ public class LicencaMapperImpl implements LicencaMapper {
                 .funcionario(entidade.getFuncionario().getNome())
                 .build();
     }
+    Funcionario gerarInstanciaFuncionario(Long id) {
 
+        return FuncionarioMapper.gerarInstanciaFuncionario(id);
+    }
     private byte[] filetoByteArray(File file) {
         FileInputStream fis = null;
         try {

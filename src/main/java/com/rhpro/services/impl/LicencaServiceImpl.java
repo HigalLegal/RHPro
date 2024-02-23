@@ -7,10 +7,12 @@ import com.rhpro.entities.Licenca;
 import com.rhpro.repositories.LicencaRepository;
 import com.rhpro.services.LicencaService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Service
 public class LicencaServiceImpl implements LicencaService {
 
     private final LicencaRepository licencaRepository;
