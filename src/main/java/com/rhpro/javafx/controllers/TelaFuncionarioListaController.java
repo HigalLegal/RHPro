@@ -1,15 +1,16 @@
 package com.rhpro.javafx.controllers;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.rhpro.controllers.FuncionarioController;
+import com.rhpro.controllers.impl.FuncionarioControllerImpl;
 import com.rhpro.dto.inputs.FuncionarioInput;
+import com.rhpro.dto.outputs.FuncionarioOutputAll;
+import com.rhpro.javafx.util.AnchorPaneUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,7 +32,7 @@ import javafx.scene.shape.SVGPath;
 public class TelaFuncionarioListaController implements Initializable {
 
     @FXML
-    private TableView<FuncionarioInput> viewFuncionario;
+    private TableView<FuncionarioOutputAll> viewFuncionario;
     @FXML
     private TableColumn<FuncionarioInput, String> viewFuncionarioNome;
     @FXML
@@ -62,13 +63,6 @@ public class TelaFuncionarioListaController implements Initializable {
     private Label tabelaFuncionarioIrf;
     @FXML
     private AnchorPane menuFuncionario;
-
-    private List<FuncionarioInput> listFuncionarios;
-
-    // CONSULTA NO BANCO NECESSARIA AQUI
-        // select de funcionarios...
-    List<FuncionarioInput> listaFuncionarios = new ArrayList<>();
-    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,9 +76,11 @@ public class TelaFuncionarioListaController implements Initializable {
         viewFuncionarioCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
         
         // Substituir pela chamada do controlador reponsavel pela conexão com o BD
-        
+        FuncionarioController funcionarioController = new FuncionarioControllerImpl(); // Supondo que você tenha uma implementação dessa interface
+        List<FuncionarioOutputAll> funcionarios = funcionarioController.listarTodos();
+
         // Conversão da lista para uma lista observavel
-        ObservableList<FuncionarioInput> observableListFuncionarios = FXCollections.observableArrayList(listaFuncionarios);
+        ObservableList<FuncionarioOutputAll> observableListFuncionarios = FXCollections.observableArrayList(funcionarios);
         // Setando os campos usando a lista
         viewFuncionario.setItems(observableListFuncionarios);
         System.out.println(observableListFuncionarios);
@@ -92,6 +88,8 @@ public class TelaFuncionarioListaController implements Initializable {
 
     public void handleHome() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MenuPrincipal.fxml")));
+        // Ultilitario para dimensionar a tela // Funciona para Resposividade da tela.
+        AnchorPaneUtils.setAnchorPane(a);
         menuFuncionario.getChildren().setAll(a);
     }
     

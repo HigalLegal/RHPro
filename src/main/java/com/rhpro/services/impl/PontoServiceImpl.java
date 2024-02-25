@@ -28,7 +28,8 @@ public class PontoServiceImpl implements PontoService {
     @Override
     public List<PontoOutput> pontoPorFuncionaro(Long funcionarioId) {
         return pontoRepository
-                .pontoPorFuncionarioId(funcionarioId)
+                //.pontoPorFuncionarioId(funcionarioId)
+                .findAll()
                 .stream()
                 .map(pontoMapper::paraSaida)
                 .collect(Collectors.toList());
@@ -37,7 +38,8 @@ public class PontoServiceImpl implements PontoService {
     @Override
     public List<PontoOutput> pontoPorDia(Long funcionarioId, LocalDate dia) {
         return pontoRepository
-                .pontoPorDia(funcionarioId, dia)
+                //.pontoPorDia(funcionarioId, dia)
+                .findAll()
                 .stream()
                 .map(pontoMapper::paraSaida)
                 .collect(Collectors.toList());

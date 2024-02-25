@@ -22,11 +22,11 @@
 <?import javafx.scene.shape.SVGPath?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menuFuncionario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rhpro.javafx.controllers.TelaFuncionarioListaController">
+<AnchorPane fx:id="menuFuncionario" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.rhpro.javafx.controllers.TelaFuncionarioListaController">
    <children>
-      <AnchorPane prefHeight="401.0" prefWidth="600.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane prefHeight="400.0" prefWidth="55.0" style="-fx-background-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SVGPath fx:id="buttonHome" content="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1" fill="WHITE" layoutX="20.0" layoutY="362.0" onMouseClicked="#handleHome" style="-fx-scale-x: 2; -fx-scale-y: 2;">
+            <SVGPath fx:id="buttonHome" content="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1" fill="WHITE" layoutX="20.0" onMouseClicked="#handleHome" style="-fx-scale-x: 2; -fx-scale-y: 2;" AnchorPane.bottomAnchor="22.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -36,32 +36,32 @@
                   <Image url="@../rh-scaled.png" />
                </image>
             </ImageView>
-            <Separator layoutX="12.0" layoutY="337.0" prefHeight="6.0" prefWidth="32.0" />
+            <Separator layoutX="12.0" layoutY="337.0" prefHeight="6.0" prefWidth="32.0" AnchorPane.bottomAnchor="57.0" />
             <Separator layoutX="12.0" layoutY="60.0" prefHeight="6.0" prefWidth="32.0" />
-            <SVGPath fx:id="buttonAdcionar" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm1 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" fill="WHITE" layoutX="17.0" layoutY="148.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;">
+            <SVGPath fx:id="buttonAdcionar" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm1 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z" fill="WHITE" layoutX="17.0" layoutY="148.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;" AnchorPane.bottomAnchor="250.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </SVGPath>
-            <SVGPath fx:id="buttonEditar" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zM8.999 17H7v-1.999l5.53-5.522 1.999 1.999L8.999 17zm6.473-6.465-1.999-1.999 1.524-1.523 1.999 1.999-1.524 1.523z" disable="true" fill="WHITE" layoutX="16.0" layoutY="188.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;">
+            <SVGPath fx:id="buttonEditar" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zM8.999 17H7v-1.999l5.53-5.522 1.999 1.999L8.999 17zm6.473-6.465-1.999-1.999 1.524-1.523 1.999 1.999-1.524 1.523z" disable="true" fill="WHITE" layoutX="16.0" layoutY="188.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;" AnchorPane.bottomAnchor="200.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </SVGPath>
-            <SVGPath fx:id="buttonExcluir" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm.706 13.293-1.414 1.414L12 13.415l-3.292 3.292-1.414-1.414 3.292-3.292-3.292-3.292 1.414-1.414L12 10.587l3.292-3.292 1.414 1.414-3.292 3.292 3.292 3.292z" disable="true" fill="WHITE" layoutX="17.0" layoutY="229.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;">
+            <SVGPath fx:id="buttonExcluir" content="M16 2H8C4.691 2 2 4.691 2 8v13a1 1 0 0 0 1 1h13c3.309 0 6-2.691 6-6V8c0-3.309-2.691-6-6-6zm.706 13.293-1.414 1.414L12 13.415l-3.292 3.292-1.414-1.414 3.292-3.292-3.292-3.292 1.414-1.414L12 10.587l3.292-3.292 1.414 1.414-3.292 3.292 3.292 3.292z" disable="true" fill="WHITE" layoutX="17.0" layoutY="229.0" style="-fx-scale-x: 1.7; -fx-scale-y: 1.7;" AnchorPane.bottomAnchor="150.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </SVGPath>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="55.0" prefHeight="400.0" prefWidth="545.0">
+      <AnchorPane layoutX="55.0" prefHeight="400.0" prefWidth="545.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <SplitPane dividerPositions="0.49171270718232046" layoutX="264.0" layoutY="69.0" prefHeight="400.0" prefWidth="545.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.49171270718232046" layoutX="264.0" layoutY="69.0" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="400.0" prefWidth="545.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" >
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <TableView fx:id="viewFuncionario" prefHeight="398.0" prefWidth="288.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <TableView fx:id="viewFuncionario" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="398.0" prefWidth="288.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
                             <TableColumn fx:id="viewFuncionarioNome" prefWidth="148.0" text="Nome" />
                             <TableColumn fx:id="viewFuncionarioCpf" prefWidth="115.0" text="CPF" />

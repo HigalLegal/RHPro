@@ -1,5 +1,6 @@
 package com.rhpro.javafx.controllers;
 
+import com.rhpro.javafx.util.AnchorPaneUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,6 +25,8 @@ public class TelaPagamentoController implements Initializable {
     @FXML
     public void handleHome() throws IOException {
         AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/MenuPrincipal.fxml"));
+        // Ultilitario para dimensionar a tela // Funciona para Resposividade da tela.
+        AnchorPaneUtils.setAnchorPane(a);
         menuPagamento.getChildren().setAll(a);
     }
 

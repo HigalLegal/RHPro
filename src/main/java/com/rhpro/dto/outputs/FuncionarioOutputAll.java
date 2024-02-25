@@ -15,6 +15,8 @@ public class FuncionarioOutputAll {
 
     private String nome;
 
+    private String cpf;
+
     private String sobrenome;
 
     private String emailCorporativo;

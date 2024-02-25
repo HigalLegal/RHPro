@@ -41,7 +41,7 @@ public class MainFX extends Application {
         // Cena e titulo
         stage.setScene(scene);
         stage.setTitle("RHPro");
-        stage.setResizable(false);
+//        stage.setResizable(false);
         stage.show();
     }
 
