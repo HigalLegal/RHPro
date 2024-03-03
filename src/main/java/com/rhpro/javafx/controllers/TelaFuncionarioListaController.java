@@ -83,18 +83,20 @@ public class TelaFuncionarioListaController implements Initializable {
     }
 
     private void selecionarItemTableViewFuncionario(FuncionarioOutputAll funcionarioOut) {
-        // Instanciando o controller de funcionario
-        FuncionarioController funcionarioController = new FuncionarioControllerImpl();
-        // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
-        FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionarioOut.getId());
-        // Agora só alterar os campos do Grid do funcionario usando get dos campos.
-        tabelaFuncionarioCodigo.setText(String.valueOf(funcionarioOutputOne.getId()));
-        tabelaFuncionarioNome.setText(String.valueOf(funcionarioOutputOne.getNome()));
-        tabelaFuncionarioCpf.setText(String.valueOf(funcionarioOutputOne.getCpf()));
-        tabelaFuncionarioSobreNome.setText(String.valueOf(funcionarioOutputOne.getSobrenome()));
-        tabelaFuncionarioEmail.setText(String.valueOf(funcionarioOutputOne.getEmailCorporativo()));
-        tabelaFuncionarioDataNascimento.setText(String.valueOf(funcionarioOutputOne.getDataDeNascimento()));
-        tabelaFuncionarioSalario.setText(String.valueOf(funcionarioOutputOne.getSalarioHora()));
+        if(funcionarioOut != null) {
+            // Instanciando o controller de funcionario
+            FuncionarioController funcionarioController = new FuncionarioControllerImpl();
+            // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
+            FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionarioOut.getId());
+            // Agora só alterar os campos do Grid do funcionario usando get dos campos.
+            tabelaFuncionarioCodigo.setText(String.valueOf(funcionarioOutputOne.getId()));
+            tabelaFuncionarioNome.setText(String.valueOf(funcionarioOutputOne.getNome()));
+            tabelaFuncionarioCpf.setText(String.valueOf(funcionarioOutputOne.getCpf()));
+            tabelaFuncionarioSobreNome.setText(String.valueOf(funcionarioOutputOne.getSobrenome()));
+            tabelaFuncionarioEmail.setText(String.valueOf(funcionarioOutputOne.getEmailCorporativo()));
+            tabelaFuncionarioDataNascimento.setText(String.valueOf(funcionarioOutputOne.getDataDeNascimento()));
+            tabelaFuncionarioSalario.setText(String.valueOf(funcionarioOutputOne.getSalarioHora()));
+        }
     }
 
     // Carregamento da parte View Nome e CPF
@@ -110,7 +112,6 @@ public class TelaFuncionarioListaController implements Initializable {
         ObservableList<FuncionarioOutputAll> observableListFuncionarios = FXCollections.observableArrayList(funcionarios);
         // Setando os campos usando a lista
         viewFuncionario.setItems(observableListFuncionarios);
-        System.out.println(observableListFuncionarios);
     }
 
     @FXML
@@ -132,7 +133,7 @@ public class TelaFuncionarioListaController implements Initializable {
     }
 
     @FXML
-    public void handleButtonExcluir() {
+    public void handleButtonExcluir() throws IOException {
         FuncionarioOutputAll funcionario = viewFuncionario.getSelectionModel().getSelectedItem();
         // Instanciando o controller de funcionario
         FuncionarioController funcionarioController = new FuncionarioControllerImpl();
@@ -142,7 +143,18 @@ public class TelaFuncionarioListaController implements Initializable {
             alert.setContentText("Por favor, escolha um funcionario na Tabela!");
             alert.show();
         } else {
-            funcionarioController.deletar(funcionario.getId());
+            FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionario.getId());
+            // Converter Output Input
+            FuncionarioInput funcionarioInput = covertOutToInputFuncionario(funcionarioOutputOne);
+
+            if (funcionarioInput != null) {
+                boolean buttonCofirmClick = confirmarDeletarFuncionario(funcionarioInput);
+                if (buttonCofirmClick) {
+                    // Envio para Controlador o cadastro Cliente
+                    funcionarioController.deletar(funcionarioOutputOne.getId());
+                    carregarTableView();
+                }
+            }
         }
     }
 
