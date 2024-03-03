@@ -29,6 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -221,6 +222,9 @@ public class TelaFuncionarioListaController implements Initializable {
         dialogStage.setTitle("Confirmação");
         Scene scene = new Scene(page);
         dialogStage.setScene(scene);
+        dialogStage.setResizable(false);
+        // Deixando a telinha sem a barra
+        dialogStage.initStyle(StageStyle.UNDECORATED);
 
         // Setando o Cliente no Controller.
         ConfirmacaoDeletarFuncionario controller = loader.getController();

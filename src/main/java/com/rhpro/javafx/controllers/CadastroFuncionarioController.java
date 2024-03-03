@@ -2,6 +2,7 @@ package com.rhpro.javafx.controllers;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Alert;
@@ -100,7 +101,7 @@ public class CadastroFuncionarioController implements Initializable{
         if(textFieldEmail.getText() == null || textFieldEmail.getText().isEmpty()){
             errorMsg += "Email Inválido!\n";
         }
-        if(textFieldIrf.getText() == null || textFieldIrf.getText().isEmpty()){
+        if(textFieldIrf.getText() == null || textFieldIrf.getText().isEmpty() || Objects.equals(textFieldIrf.getText(), "null")){
             errorMsg += "IRF Inválido!\n";
         }
         if(datePickerDataNasc.getValue() == null || datePickerDataNasc.getValue() == null){
