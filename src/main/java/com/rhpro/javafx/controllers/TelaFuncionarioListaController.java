@@ -41,7 +41,6 @@ import org.springframework.context.annotation.ComponentScan;
 @Data
 @ComponentScan(basePackages = {"com.rhpro.javafx"})
 
-
 public class TelaFuncionarioListaController implements Initializable {
 
     @FXML
@@ -123,41 +122,59 @@ public class TelaFuncionarioListaController implements Initializable {
     }
 
     @FXML
-    public void hadleButtonAdicionar() throws IOException{
+    public void hadleButtonAdicionar() throws IOException {
         FuncionarioInput funcionarioInput = new FuncionarioInput();
         boolean buttonConfirmClick = showFXMLAnchorPaneCadastrosClientesDialog(funcionarioInput);
-        if(buttonConfirmClick){
+        if (buttonConfirmClick) {
             FuncionarioController funcionarioController = new FuncionarioControllerImpl();
             funcionarioController.criar(funcionarioInput);
         }
     }
 
     @FXML
-    public void handleButtonEditar() throws IOException {
+    public void handleButtonExcluir() {
         FuncionarioOutputAll funcionario = viewFuncionario.getSelectionModel().getSelectedItem();
-
         // Instanciando o controller de funcionario
         FuncionarioController funcionarioController = new FuncionarioControllerImpl();
         // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
-        FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionario.getId());
-        // Converter Output Input
-        FuncionarioInput funcionarioInput = covertOutToInputFuncionario(funcionarioOutputOne);
-
-        if(funcionarioInput != null){
-            boolean buttonCofirmClick = showFXMLAnchorPaneCadastrosClientesDialog(funcionarioInput);
-            if(buttonCofirmClick){
-                // Envio para Controlador o cadastro Cliente
-                funcionarioController.criar(funcionarioInput);
-                carregarTableView();
-            }
-        }else{
+        if (funcionario == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setContentText("Por favor, escolha um funcionario na Tabela!");
             alert.show();
+        } else {
+            funcionarioController.deletar(funcionario.getId());
         }
     }
 
+    @FXML
+    public void handleButtonEditar() throws IOException {
+        FuncionarioOutputAll funcionario = viewFuncionario.getSelectionModel().getSelectedItem();
+        // Instanciando o controller de funcionario
+        FuncionarioController funcionarioController = new FuncionarioControllerImpl();
+        // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
+        if (funcionario == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("Por favor, escolha um funcionario na Tabela!");
+            alert.show();
+        } else {
+            FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionario.getId());
+            // Converter Output Input
+            FuncionarioInput funcionarioInput = covertOutToInputFuncionario(funcionarioOutputOne);
 
+            if (funcionarioInput != null) {
+                boolean buttonCofirmClick = showFXMLAnchorPaneCadastrosClientesDialog(funcionarioInput);
+                if (buttonCofirmClick) {
+                    // Envio para Controlador o cadastro Cliente
+                    funcionarioController.criar(funcionarioInput);
+                    carregarTableView();
+                }
+            }
+        }
+
+    }
+
+
+    // Tela de Editar ou Adicionar Funcionario;
     private boolean showFXMLAnchorPaneCadastrosClientesDialog(FuncionarioInput funcionario) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(CadastroFuncionarioController.class.getResource("/view/CadastroFuncionario.fxml"));
@@ -173,6 +190,7 @@ public class TelaFuncionarioListaController implements Initializable {
         CadastroFuncionarioController controller = loader.getController();
         controller.setDialogStage(dialogStage);
         controller.setFuncionario(funcionario);
+        System.out.println("Funcionario foi setado" + funcionario);
 
         // Mostrar Dialog e esperar pela confirmação ou cancelação.
         dialogStage.showAndWait();
@@ -181,13 +199,31 @@ public class TelaFuncionarioListaController implements Initializable {
 
     }
 
-    private FuncionarioInput covertOutToInputFuncionario(FuncionarioOutputOne funcionarioOutputOne){
-        return FuncionarioInput.builder()
-                .nome(funcionarioOutputOne.getNome())
-                .sobrenome(funcionarioOutputOne.getSobrenome())
-                .cpf(funcionarioOutputOne.getCpf())
-                .emailCorporativo(funcionarioOutputOne.getEmailCorporativo())
-                .dataDeNascimento(LocalDate.now()) // FALTA FAZER A CONVERSÃO
+    private boolean confirmarDeletarFuncionario(FuncionarioInput funcionario) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(ConfirmacaoDeletarFuncionario.class.getResource("/view/ConfirmacaoDeletarFuncionario.fxml"));
+        AnchorPane page = (AnchorPane) loader.load();
+
+        // Stage do Dialogo.
+        Stage dialogStage = new Stage();
+        dialogStage.setTitle("Confirmação");
+        Scene scene = new Scene(page);
+        dialogStage.setScene(scene);
+
+        // Setando o Cliente no Controller.
+        ConfirmacaoDeletarFuncionario controller = loader.getController();
+        controller.setDialogStage(dialogStage);
+        controller.setFuncionario(funcionario);
+
+        // Mostrar Dialog e esperar pela confirmação ou cancelação.
+        dialogStage.showAndWait();
+
+        return controller.isButtonConfirmClick();
+    }
+
+    private FuncionarioInput covertOutToInputFuncionario(FuncionarioOutputOne funcionarioOutputOne) {
+
+        return FuncionarioInput.builder().nome(funcionarioOutputOne.getNome()).sobrenome(funcionarioOutputOne.getSobrenome()).cpf(funcionarioOutputOne.getCpf()).emailCorporativo(funcionarioOutputOne.getEmailCorporativo()).dataDeNascimento(LocalDate.now()) // FALTA FAZER A CONVERSÃO
                 .salarioHora(BigDecimal.valueOf(20.0)) // FALTA FAZER A CONVERSÃO
                 .build();
     }
