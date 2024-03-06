@@ -14,9 +14,9 @@ public interface FuncionarioController {
 
     FuncionarioOutputOne retornarPorId(Long id);
 
-    void criar(FuncionarioInput funcionarioInput) throws IOException;
+    void criar(FuncionarioInput funcionarioInput);
 
-    void atualizar(Long id, FuncionarioInput funcionarioInput) throws IOException;
+    void atualizar(Long id, FuncionarioInput funcionarioInput);
 
     void deletar(Long id);
 

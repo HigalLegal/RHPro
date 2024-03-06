@@ -4,87 +4,42 @@ import com.rhpro.controllers.FuncionarioController;
 import com.rhpro.dto.inputs.FuncionarioInput;
 import com.rhpro.dto.outputs.FuncionarioOutputAll;
 import com.rhpro.dto.outputs.FuncionarioOutputOne;
+import com.rhpro.services.FuncionarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Controller
 public class FuncionarioControllerImpl implements FuncionarioController {
+
+    @Autowired
+    private FuncionarioService funcionarioService;
+
+    // -----------------------------------------------------------------------
+
     @Override
     public List<FuncionarioOutputAll> listarTodos() {
-        return simulandoBanco();
+        return funcionarioService.listarTodos();
     }
 
     @Override
     public FuncionarioOutputOne retornarPorId(Long id) {
-        FuncionarioOutputAll funcionarioOutputAll =  simulandoBanco()
-                .stream()
-                .filter(funcionario -> funcionario.getId().equals(id))
-                .collect(Collectors.toList())
-                .get(0);
-
-        return FuncionarioOutputOne
-                .builder()
-                .id(funcionarioOutputAll.getId())
-                .nome(funcionarioOutputAll.getNome())
-                .sobrenome(funcionarioOutputAll.getSobrenome())
-                .emailCorporativo(funcionarioOutputAll.getEmailCorporativo())
-                .cpf("080.979.363-26")
-                .dataDeNascimento("4 de maio de 1999")
-                .salarioHora("R$ 18,00")
-                .build();
-
+        return funcionarioService.retornarPorId(id);
     }
 
     @Override
-    public void criar(FuncionarioInput funcionarioInput) throws IOException {
-        System.out.println(funcionarioInput);
-        System.out.println("SALVO COM SUCESSO :D");
+    public void criar(FuncionarioInput funcionarioInput) {
+        funcionarioService.criar(funcionarioInput);
     }
 
     @Override
-    public void atualizar(Long id, FuncionarioInput funcionarioInput) throws IOException {
-        System.out.println("ID: " + id);
-        System.out.println(funcionarioInput);
-        System.out.println("ATUALIZADO COM SUCESSO :D");
+    public void atualizar(Long id, FuncionarioInput funcionarioInput) {
+        funcionarioService.atualizar(id, funcionarioInput);
     }
 
     @Override
     public void deletar(Long id) {
-        System.out.println("DELETADO COM SUCESSO :D");
-        System.out.println("ID: " + id);
+        funcionarioService.deletar(id);
     }
-
-    public List<FuncionarioOutputAll> simulandoBanco() {
-        FuncionarioOutputAll funcionario1 = FuncionarioOutputAll.builder()
-                .id(1L)
-                .nome("João")
-                .cpf("080.979.363-26")
-                .sobrenome("Silva")
-                .emailCorporativo("joao.silva@example.com")
-                .salarioHora("25.00")
-                .build();
-
-        FuncionarioOutputAll funcionario2 = FuncionarioOutputAll.builder()
-                .id(2L)
-                .nome("Maria")
-                .cpf("167.126.789-34")
-                .sobrenome("Santos")
-                .emailCorporativo("maria.santos@example.com")
-                .salarioHora("30.50")
-                .build();
-
-        FuncionarioOutputAll funcionario3 = FuncionarioOutputAll.builder()
-                .id(3L)
-                .nome("Pedro")
-                .cpf("174.652.631-44")
-                .sobrenome("Ferreira")
-                .emailCorporativo("pedro.ferreira@example.com")
-                .salarioHora("20.75")
-                .build();
-
-        return Arrays.asList(funcionario1, funcionario2, funcionario3);
-    }
-
 }

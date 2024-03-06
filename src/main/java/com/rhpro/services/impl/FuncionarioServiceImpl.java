@@ -8,6 +8,7 @@ import com.rhpro.entities.Funcionario;
 import com.rhpro.repositories.FuncionarioRepository;
 import com.rhpro.services.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -49,14 +50,15 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
-    public void criar(FuncionarioInput funcionarioInput) throws IOException {
+    @Transactional
+    public void criar(FuncionarioInput funcionarioInput)  {
         Funcionario funcionario = funcionarioMapper.paraEntidade(funcionarioInput);
 
         funcionarioRepository.save(funcionario);
     }
 
     @Override
-    public void atualizar(Long id, FuncionarioInput funcionarioInput) throws IOException {
+    public void atualizar(Long id, FuncionarioInput funcionarioInput) {
 
         boolean existente = funcionarioRepository.existsById(id);
 

@@ -16,8 +16,5 @@ public class LicencaInput {
 
     private LocalDate data;
 
-    //é pra ser uma imagem...
-    private File atestado;
-
     private Long funcionarioId;
 }

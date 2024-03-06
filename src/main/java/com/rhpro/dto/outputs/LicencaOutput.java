@@ -1,6 +1,5 @@
 package com.rhpro.dto.outputs;
 
-import javafx.scene.image.Image;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,8 +16,6 @@ public class LicencaOutput {
     private Long id;
 
     private LocalDate data;
-
-    private Image atestado;
 
     private String funcionario;
 

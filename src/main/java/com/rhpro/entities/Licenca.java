@@ -20,10 +20,6 @@ public class Licenca {
     @Column(nullable = false, name = "data")
     private LocalDate data;
 
-    @Column (nullable = false, name = "atestado")
-    @Lob
-    private byte[] atestado;
-
     @OneToOne
     @JoinColumn(name = "funcionario_id")
     private Funcionario funcionario;

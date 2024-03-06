@@ -31,7 +31,7 @@ public class FuncionarioMapperImpl implements FuncionarioMapper {
 
     @Override
     public Funcionario paraEntidade(FuncionarioInput input) {
-        return Funcionario
+        Funcionario funcionario = Funcionario
                 .builder()
                 .nome(input.getNome())
                 .sobrenome(input.getSobrenome())
@@ -39,9 +39,14 @@ public class FuncionarioMapperImpl implements FuncionarioMapper {
                 .cpf(input.getCpf())
                 .dataDeNascimento(input.getDataDeNascimento())
                 .salarioHora(input.getSalarioHora())
-                .folhaDePagamento(gerarFolhaDePagamento(input.getFolhaDePagamentoID(),
-                                                        input.getPorcentagemIRF()))
                 .build();
+
+        FolhaDePagamento folhaDePagamento = gerarFolhaDePagamento(null, BigDecimal.valueOf(0.05));
+        folhaDePagamento.setFuncionario(funcionario);
+
+        funcionario.setFolhaDePagamento(folhaDePagamento);
+
+        return funcionario;
     }
 
     @Override

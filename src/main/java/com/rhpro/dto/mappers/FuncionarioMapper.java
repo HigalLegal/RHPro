@@ -10,7 +10,6 @@ public interface FuncionarioMapper extends Mapper<Funcionario, FuncionarioInput,
     FuncionarioOutputOne paraSaidaAlternativo(Funcionario funcionario);
 
     public static Funcionario gerarInstanciaFuncionario(Long id) {
-
         return FuncionarioMapper.gerarInstanciaFuncionario(id);
     }
 

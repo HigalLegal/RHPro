@@ -7,6 +7,7 @@ import com.rhpro.entities.Ponto;
 import com.rhpro.repositories.PontoRepository;
 import com.rhpro.services.PontoService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,20 +17,18 @@ import java.util.stream.Collectors;
 @Service
 public class PontoServiceImpl implements PontoService {
 
-    private final PontoRepository pontoRepository;
+    @Autowired
+    private PontoRepository pontoRepository;
 
-    private final PontoMapper pontoMapper;
+    @Autowired
+    private PontoMapper pontoMapper;
 
-    public PontoServiceImpl(PontoRepository pontoRepository, PontoMapper pontoMapper) {
-        this.pontoRepository = pontoRepository;
-        this.pontoMapper = pontoMapper;
-    }
+    // ----------------------------------------------------------------------------
 
     @Override
     public List<PontoOutput> pontoPorFuncionaro(Long funcionarioId) {
         return pontoRepository
-                //.pontoPorFuncionarioId(funcionarioId)
-                .findAll()
+                .pontoPorFuncionarioId(funcionarioId)
                 .stream()
                 .map(pontoMapper::paraSaida)
                 .collect(Collectors.toList());
@@ -38,8 +37,7 @@ public class PontoServiceImpl implements PontoService {
     @Override
     public List<PontoOutput> pontoPorDia(Long funcionarioId, LocalDate dia) {
         return pontoRepository
-                //.pontoPorDia(funcionarioId, dia)
-                .findAll()
+                .pontoPorDia(funcionarioId, dia)
                 .stream()
                 .map(pontoMapper::paraSaida)
                 .collect(Collectors.toList());
