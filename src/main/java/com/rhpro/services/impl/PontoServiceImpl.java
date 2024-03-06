@@ -25,6 +25,14 @@ public class PontoServiceImpl implements PontoService {
 
     // ----------------------------------------------------------------------------
 
+    public List<PontoOutput> listarPontos() {
+        return pontoRepository
+                .findAll()
+                .stream()
+                .map(pontoMapper::paraSaida)
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<PontoOutput> pontoPorFuncionaro(Long funcionarioId) {
         return pontoRepository

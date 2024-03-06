@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface PontoController {
 
+    List<PontoOutput> todosOsPontos();
+
     List<PontoOutput> pontoPorFuncionaro(Long funcionarioId);
 
     List<PontoOutput> pontoPorDia(Long funcionarioId, LocalDate dia);

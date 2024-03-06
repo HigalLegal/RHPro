@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface PontoService {
 
+    List<PontoOutput> listarPontos();
+
     List<PontoOutput> pontoPorFuncionaro(Long funcionarioId);
 
     List<PontoOutput> pontoPorDia(Long funcionarioId, LocalDate dia);

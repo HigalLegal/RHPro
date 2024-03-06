@@ -19,6 +19,11 @@ public class PontoControllerImpl implements PontoController {
     // -----------------------------------------------------------------------------------------
 
     @Override
+    public List<PontoOutput> todosOsPontos() {
+        return pontoService.listarPontos();
+    }
+
+    @Override
     public List<PontoOutput> pontoPorFuncionaro(Long funcionarioId) {
         return pontoService.pontoPorFuncionaro(funcionarioId);
     }
