@@ -1,14 +1,30 @@
 package com.rhpro;
 
-import com.rhpro.javafx.MainFX;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class RhproApplication {
+import java.io.IOException;
 
-	public static void main(String[] args) {
-		Application.launch(MainFX.class, args);
+@SpringBootApplication
+public class RhproApplication extends Application {
+
+	public static void main(String[] args) { launch(args); }
+
+	@Override
+	public void start(Stage stage) throws IOException {
+		Parent root = FXMLLoader.load(getClass().getResource("/view/MenuPrincipal.fxml"));
+
+		Scene scene = new Scene(root);
+
+		stage.setScene(scene);
+		stage.setTitle("RHPro");
+		stage.setResizable(false);
+		stage.show();
+
 	}
 
 }

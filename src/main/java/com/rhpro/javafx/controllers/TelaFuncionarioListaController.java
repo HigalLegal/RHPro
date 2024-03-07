@@ -33,6 +33,7 @@ import javafx.stage.StageStyle;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 /**
  * FXML Controller class
@@ -41,8 +42,11 @@ import org.springframework.context.annotation.ComponentScan;
  */
 @Data
 @ComponentScan(basePackages = {"com.rhpro.javafx"})
-
+@Component
 public class TelaFuncionarioListaController implements Initializable {
+    
+    @Autowired
+    private FuncionarioController funcionarioController;
 
     @FXML
     private TableView<FuncionarioOutputAll> viewFuncionario;
@@ -86,7 +90,7 @@ public class TelaFuncionarioListaController implements Initializable {
     private void selecionarItemTableViewFuncionario(FuncionarioOutputAll funcionarioOut) {
         if(funcionarioOut != null) {
             // Instanciando o controller de funcionario
-            FuncionarioController funcionarioController = new FuncionarioControllerImpl();
+            
             // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
             FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionarioOut.getId());
             // Agora só alterar os campos do Grid do funcionario usando get dos campos.
@@ -106,7 +110,7 @@ public class TelaFuncionarioListaController implements Initializable {
         viewFuncionarioCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 
         // Substituir pela chamada do controlador reponsavel pela conexão com o BD
-        FuncionarioController funcionarioController = new FuncionarioControllerImpl(); // Supondo que você tenha uma implementação dessa interface
+         // Supondo que você tenha uma implementação dessa interface
         List<FuncionarioOutputAll> funcionarios = funcionarioController.listarTodos();
 
         // Conversão da lista para uma lista observavel
@@ -128,7 +132,7 @@ public class TelaFuncionarioListaController implements Initializable {
         FuncionarioInput funcionarioInput = new FuncionarioInput();
         boolean buttonConfirmClick = showFXMLAnchorPaneCadastrosClientesDialog(funcionarioInput);
         if (buttonConfirmClick) {
-            FuncionarioController funcionarioController = new FuncionarioControllerImpl();
+            
             funcionarioController.criar(funcionarioInput);
         }
     }
@@ -137,7 +141,7 @@ public class TelaFuncionarioListaController implements Initializable {
     public void handleButtonExcluir() throws IOException {
         FuncionarioOutputAll funcionario = viewFuncionario.getSelectionModel().getSelectedItem();
         // Instanciando o controller de funcionario
-        FuncionarioController funcionarioController = new FuncionarioControllerImpl();
+        
         // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
         if (funcionario == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -163,7 +167,7 @@ public class TelaFuncionarioListaController implements Initializable {
     public void handleButtonEditar() throws IOException {
         FuncionarioOutputAll funcionario = viewFuncionario.getSelectionModel().getSelectedItem();
         // Instanciando o controller de funcionario
-        FuncionarioController funcionarioController = new FuncionarioControllerImpl();
+        
         // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
         if (funcionario == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);

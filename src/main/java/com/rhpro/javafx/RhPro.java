@@ -8,8 +8,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static javafx.application.Application.launch;
-
 public class RhPro extends Application {
 
     public static void main(String[] args) {
@@ -19,7 +17,7 @@ public class RhPro extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/javafx/view/MenuPrincipal.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/view/MenuPrincipal.fxml"));
 
         Scene scene = new Scene(root);
 
