@@ -229,4 +229,4 @@ Este projeto é um esforço colaborativo dos seguintes desenvolvedores:
 
 
 ## ⚖️ Licença
-Código liberado sob a [LICENÇA]().
+Código liberado sob a [LICENÇA MIT](https://github.com/HigalLegal/RHPro/blob/main/LICENSE).
