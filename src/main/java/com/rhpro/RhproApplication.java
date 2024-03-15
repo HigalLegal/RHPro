@@ -1,30 +1,20 @@
 package com.rhpro;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.spring.SpringFxWeaver;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.IOException;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class RhproApplication extends Application {
+public class RhproApplication {
 
-	public static void main(String[] args) { launch(args); }
-
-	@Override
-	public void start(Stage stage) throws IOException {
-		Parent root = FXMLLoader.load(getClass().getResource("/view/MenuPrincipal.fxml"));
-
-		Scene scene = new Scene(root);
-
-		stage.setScene(scene);
-		stage.setTitle("RHPro");
-		stage.setResizable(false);
-		stage.show();
-
+	@Bean
+	public FxWeaver fxWeaver(ConfigurableApplicationContext applicationContext) {
+		return new SpringFxWeaver(applicationContext);
 	}
+
+	public static void main(String[] args) { Application.launch(RhPro.class, args); }
 
 }

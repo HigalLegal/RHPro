@@ -28,11 +28,17 @@ public class FolhaDePagamento {
     private Funcionario funcionario;
 
     public BigDecimal calcularIRF() {
-        return funcionario.getSalarioHora().multiply(porcentagemIRF);
+        return funcionario
+                .getSalarioHora()
+                .multiply(BigDecimal.valueOf(20 * 8))
+                .multiply(porcentagemIRF);
     }
 
     public BigDecimal calcularSalarioLiquido() {
-        return funcionario.getSalarioHora().subtract(calcularIRF());
+        return funcionario
+                .getSalarioHora()
+                .multiply(BigDecimal.valueOf(20 * 8))
+                .subtract(calcularIRF());
     }
 
 }

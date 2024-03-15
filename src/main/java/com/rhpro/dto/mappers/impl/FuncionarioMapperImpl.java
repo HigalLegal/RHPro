@@ -9,6 +9,7 @@ import com.rhpro.entities.Funcionario;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 @Component
@@ -26,6 +27,7 @@ public class FuncionarioMapperImpl implements FuncionarioMapper {
                 .cpf(funcionario.getCpf())
                 .dataDeNascimento(dataParaString(funcionario.getDataDeNascimento()))
                 .salarioHora(bigDecimalParaReal(funcionario.getSalarioHora()))
+                .idFolha(funcionario.getFolhaDePagamento().getId())
                 .build();
     }
 
@@ -41,7 +43,8 @@ public class FuncionarioMapperImpl implements FuncionarioMapper {
                 .salarioHora(input.getSalarioHora())
                 .build();
 
-        FolhaDePagamento folhaDePagamento = gerarFolhaDePagamento(null, BigDecimal.valueOf(0.05));
+        FolhaDePagamento folhaDePagamento = gerarFolhaDePagamento(input.getFolhaDePagamentoID(),
+                BigDecimal.valueOf(0.05));
         folhaDePagamento.setFuncionario(funcionario);
 
         funcionario.setFolhaDePagamento(folhaDePagamento);
@@ -101,7 +104,10 @@ public class FuncionarioMapperImpl implements FuncionarioMapper {
     }
 
     private String bigDecimalParaReal(BigDecimal valor) {
-        return valor.toString().replace(".", ",");
+        return "R$ " +  valor
+                .setScale(2, RoundingMode.HALF_UP)
+                .toString()
+                .replace(".", ",");
     }
 
 

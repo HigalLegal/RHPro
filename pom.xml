@@ -22,12 +22,6 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx</artifactId>
-			<version>21</version>
-			<type>pom</type>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
@@ -37,6 +31,12 @@
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
 			<version>21</version>
+		</dependency>
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx</artifactId>
+			<version>21</version>
+			<type>pom</type>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -52,6 +52,28 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.rgielen</groupId>
+			<artifactId>javafx-weaver</artifactId>
+			<version>1.3.0</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>net.rgielen</groupId>
+			<artifactId>javafx-weaver-spring</artifactId>
+			<version>1.3.0</version>
+		</dependency>
+		<dependency>
+			<groupId>net.rgielen</groupId>
+			<artifactId>javafx-weaver-spring-boot</artifactId>
+			<version>1.3.0</version>
+			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>net.rgielen</groupId>
+			<artifactId>javafx-weaver-spring-boot-starter</artifactId>
+			<version>1.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -73,14 +95,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.openjfx</groupId>
-				<artifactId>javafx-maven-plugin</artifactId>
-				<version>0.0.8</version>
-				<configuration>
-					<mainClass>com.rhpro.RhproApplication</mainClass> <!-- Substitua com a classe principal da sua aplicação JavaFX -->
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>

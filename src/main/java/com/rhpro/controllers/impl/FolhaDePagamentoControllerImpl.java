@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import java.util.List;
 
 @Controller
-public class FolhaDePagamentoImpl implements FolhaDePagamentoController {
+public class FolhaDePagamentoControllerImpl implements FolhaDePagamentoController {
 
     @Autowired
     private FolhaDePagamentoService folhaDePagamentoService;

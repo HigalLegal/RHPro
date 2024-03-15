@@ -10,12 +10,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.SVGPath;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+@Component
+@FxmlView("/view/MenuConfiguracao.fxml")
 public class MenuConfiguracao implements Initializable {
 
     @FXML

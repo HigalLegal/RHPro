@@ -7,6 +7,10 @@ import com.rhpro.entities.Funcionario;
 import com.rhpro.entities.Ponto;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 @Component
 public class PontoMapperImpl implements PontoMapper {
 
@@ -25,14 +29,25 @@ public class PontoMapperImpl implements PontoMapper {
         return PontoOutput
                 .builder()
                 .id(entidade.getId())
-                .data(entidade.getHoraChegada().toLocalDate())
-                .horaChegada(entidade.getHoraChegada().toLocalTime())
-                .horaSaida(entidade.getHoraSaida().toLocalTime())
+                .data(localDateParaDataBR(entidade.getHoraChegada().toLocalDate()))
+                .horaChegada(localTimeParaString(entidade.getHoraChegada().toLocalTime()))
+                .horaSaida(localTimeParaString(entidade.getHoraSaida().toLocalTime()))
                 .horasTrabalhadas(entidade.calcularHoraTrabalhadaPorDia())
                 .funcionario(entidade.getFuncionario().getNome())
                 .build();
     }
-    Funcionario gerarInstanciaFuncionario(Long id) {
+
+    private String localDateParaDataBR(LocalDate data) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return data.format(formatter);
+    }
+
+    private String localTimeParaString(LocalTime horario){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return horario.format(formatter);
+    }
+
+    private Funcionario gerarInstanciaFuncionario(Long id) {
         return Funcionario.builder().id(id).build();
     }
 }

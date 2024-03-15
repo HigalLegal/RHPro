@@ -30,6 +30,7 @@ public class FuncionarioControllerImpl implements FuncionarioController {
 
     @Override
     public void criar(FuncionarioInput funcionarioInput) {
+        System.out.println(funcionarioInput);
         funcionarioService.criar(funcionarioInput);
     }
 

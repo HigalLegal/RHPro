@@ -6,6 +6,7 @@ import com.rhpro.entities.FolhaDePagamento;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Component
 public class FolhaDePagamentoMapperImpl implements FolhaDePagamentoMapper {
@@ -15,20 +16,27 @@ public class FolhaDePagamentoMapperImpl implements FolhaDePagamentoMapper {
         return FolhaDePagamentoOutput
                 .builder()
                 .id(entidade.getId())
-                .porcentagemIRF(converterParaReal(entidade.getPorcentagemIRF()))
+                .porcentagemIRF(converterParaPorcentagem(entidade.getPorcentagemIRF()))
                 .funcionario(entidade.getFuncionario().getNome())
                 .valorIRF(converterParaReal(entidade.calcularIRF()))
                 .salarioLiquido(converterParaReal(entidade.calcularSalarioLiquido()))
                 .build();
     }
 
+    private String converterParaPorcentagem(BigDecimal valor) {
+        return valor
+                .multiply(BigDecimal.valueOf(100))
+                .setScale(0, RoundingMode.HALF_UP)
+                .toString()
+                .replace(".", ",").concat("%");
+    }
+
     private String converterParaReal(BigDecimal bigDecimal) {
 
-        String valor = bigDecimal.toString();
-
-        String valorComVirgula = valor.replaceAll(".", ",");
-
-        return "R$ " + valorComVirgula;
+        return "R$ " + bigDecimal
+                .setScale(2, RoundingMode.HALF_UP)
+                .toString()
+                .replace(".", ",");
     }
 
 }

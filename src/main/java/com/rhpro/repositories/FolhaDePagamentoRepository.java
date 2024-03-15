@@ -11,4 +11,7 @@ public interface FolhaDePagamentoRepository extends JpaRepository<FolhaDePagamen
     @Query("SELECT f FROM FolhaDePagamento f JOIN f.funcionario func WHERE func.nome = :nome")
     List<FolhaDePagamento> procurarPorNomeDoFuncionario(String nome);
 
+    @Query("SELECT f FROM FolhaDePagamento f JOIN f.funcionario func WHERE func.id = :idFuncionario")
+    FolhaDePagamento procurarPorIdDoFuncionario(Long idFuncionario);
+
 }

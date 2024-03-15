@@ -25,5 +25,7 @@ public class FuncionarioOutputOne {
 
     private String salarioHora;
 
+    private Long idFolha;
+
 
 }

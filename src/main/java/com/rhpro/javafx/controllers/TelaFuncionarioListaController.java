@@ -9,30 +9,34 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import com.rhpro.controllers.FuncionarioController;
-import com.rhpro.controllers.impl.FuncionarioControllerImpl;
 import com.rhpro.dto.inputs.FuncionarioInput;
+import com.rhpro.dto.outputs.FolhaDePagamentoOutput;
 import com.rhpro.dto.outputs.FuncionarioOutputAll;
 import com.rhpro.dto.outputs.FuncionarioOutputOne;
 import com.rhpro.entities.Funcionario;
 import com.rhpro.javafx.util.AnchorPaneUtils;
+import com.rhpro.javafx.util.Icon;
+import jakarta.annotation.Nullable;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import lombok.Data;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 /**
@@ -41,25 +45,24 @@ import org.springframework.stereotype.Component;
  * @author Is Whatever
  */
 @Data
-@ComponentScan(basePackages = {"com.rhpro.javafx"})
 @Component
+@FxmlView("/view/TelaFuncionarioLista.fxml")
 public class TelaFuncionarioListaController implements Initializable {
-    
+
     @Autowired
     private FuncionarioController funcionarioController;
+
+    @Autowired
+    private FxWeaver fxWeaver;
 
     @FXML
     private TableView<FuncionarioOutputAll> viewFuncionario;
     @FXML
     private TableColumn<FuncionarioInput, String> viewFuncionarioNome;
     @FXML
-    private TableColumn<FuncionarioInput, String> viewFuncionarioCpf;
-    @FXML
     private SVGPath buttonAdcionar;
     @FXML
     private SVGPath buttonEditar;
-    @FXML
-    private SVGPath buttonExcluir;
     @FXML
     private SVGPath buttonHome;
     @FXML
@@ -78,19 +81,56 @@ public class TelaFuncionarioListaController implements Initializable {
     private Label tabelaFuncionarioSalario;
     @FXML
     private AnchorPane menuFuncionario;
+    @FXML
+    private TextField searchFuncionario;
+
+    // Filtro
+    ObservableList<FuncionarioOutputAll> observableListFuncionarios;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+        TableColumn<FuncionarioOutputAll, Void> buttonColumn = new TableColumn<>("Ações");
+        buttonColumn.setPrefWidth(100);
+
+        buttonColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button excluirButton = new Button("Excluir");
+
+            {
+
+                excluirButton.setOnAction(event -> {
+                    FuncionarioOutputAll funcionario = getTableView().getItems().get(getIndex());
+                    excluirFuncionario(funcionario.getId());
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(new HBox(excluirButton));
+                }
+            }
+        });
+
+        // Carrega os valores na tabela
         carregarTableView();
 
+        viewFuncionario.getColumns().add(buttonColumn);
+
+        // Observador para linhas da tabela.
         viewFuncionario.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> selecionarItemTableViewFuncionario(newValue));
+
+        // Observador da caixa de pesquisa.
+        searchFuncionario.textProperty().addListener((observable, oldValue, newValue) -> filtrarPorNome(newValue));
     }
 
     private void selecionarItemTableViewFuncionario(FuncionarioOutputAll funcionarioOut) {
         if(funcionarioOut != null) {
             // Instanciando o controller de funcionario
-            
+//            FuncionarioController funcionarioController = new FuncionarioControllerImpl();
             // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
             FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionarioOut.getId());
             // Agora só alterar os campos do Grid do funcionario usando get dos campos.
@@ -107,21 +147,36 @@ public class TelaFuncionarioListaController implements Initializable {
     // Carregamento da parte View Nome e CPF
     public void carregarTableView() {
         viewFuncionarioNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-        viewFuncionarioCpf.setCellValueFactory(new PropertyValueFactory<>("cpf"));
 
         // Substituir pela chamada do controlador reponsavel pela conexão com o BD
-         // Supondo que você tenha uma implementação dessa interface
         List<FuncionarioOutputAll> funcionarios = funcionarioController.listarTodos();
 
-        // Conversão da lista para uma lista observavel
-        ObservableList<FuncionarioOutputAll> observableListFuncionarios = FXCollections.observableArrayList(funcionarios);
-        // Setando os campos usando a lista
-        viewFuncionario.setItems(observableListFuncionarios);
+        if(funcionarios != null) {
+            // Conversão da lista para uma lista observavel
+            observableListFuncionarios = FXCollections.observableArrayList(funcionarios);
+            // Setando os campos usando a lista
+            viewFuncionario.setItems(observableListFuncionarios);
+        }
+    }
+
+    private void filtrarPorNome(String nome) {
+        if (nome != null && observableListFuncionarios !=null) {
+            ObservableList<FuncionarioOutputAll> filteredList = FXCollections.observableArrayList();
+            for (FuncionarioOutputAll func : observableListFuncionarios) {
+                if (func.getNome().toLowerCase().contains(nome.toLowerCase())) {
+                    filteredList.add(func);
+                }
+            }
+            if(!filteredList.isEmpty()){
+                viewFuncionario.setItems(filteredList);
+            }
+        }
     }
 
     @FXML
     public void handleHome() throws IOException {
-        AnchorPane a = (AnchorPane) FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MenuPrincipal.fxml")));
+//        AnchorPane a = (AnchorPane) FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/view/MenuPrincipal.fxml")));
+        AnchorPane a = (AnchorPane) fxWeaver.loadView(MenuPrincipalController.class);
         // Ultilitario para dimensionar a tela // Funciona para Resposividade da tela.
         AnchorPaneUtils.setAnchorPane(a);
         menuFuncionario.getChildren().setAll(a);
@@ -130,44 +185,25 @@ public class TelaFuncionarioListaController implements Initializable {
     @FXML
     public void hadleButtonAdicionar() throws IOException {
         FuncionarioInput funcionarioInput = new FuncionarioInput();
-        boolean buttonConfirmClick = showFXMLAnchorPaneCadastrosClientesDialog(funcionarioInput);
+        boolean buttonConfirmClick = showFXMLAnchorPaneCadastrosClientesDialog(funcionarioInput, null);
         if (buttonConfirmClick) {
-            
-            funcionarioController.criar(funcionarioInput);
+//            funcionarioController.criar(funcionarioInput);
         }
     }
 
-    @FXML
-    public void handleButtonExcluir() throws IOException {
-        FuncionarioOutputAll funcionario = viewFuncionario.getSelectionModel().getSelectedItem();
-        // Instanciando o controller de funcionario
-        
-        // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
-        if (funcionario == null) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("Por favor, escolha um funcionario na Tabela!");
-            alert.show();
-        } else {
-            FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionario.getId());
-            // Converter Output Input
-            FuncionarioInput funcionarioInput = covertOutToInputFuncionario(funcionarioOutputOne);
-
-            if (funcionarioInput != null) {
-                boolean buttonCofirmClick = confirmarDeletarFuncionario(funcionarioInput);
-                if (buttonCofirmClick) {
-                    // Envio para Controlador o cadastro Cliente
-                    funcionarioController.deletar(funcionarioOutputOne.getId());
-                    carregarTableView();
-                }
-            }
-        }
+    public void excluirFuncionario(Long id) {
+        funcionarioController.deletar(id);
+        carregarTableView();
     }
+
+
+
+
 
     @FXML
     public void handleButtonEditar() throws IOException {
         FuncionarioOutputAll funcionario = viewFuncionario.getSelectionModel().getSelectedItem();
         // Instanciando o controller de funcionario
-        
         // Usando a lista de funcionarios pelo Id criei o objeto de um dos funcionarios.
         if (funcionario == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -177,12 +213,14 @@ public class TelaFuncionarioListaController implements Initializable {
             FuncionarioOutputOne funcionarioOutputOne = funcionarioController.retornarPorId(funcionario.getId());
             // Converter Output Input
             FuncionarioInput funcionarioInput = covertOutToInputFuncionario(funcionarioOutputOne);
+            Long id = funcionarioOutputOne.getId();;
+            funcionarioInput.setFolhaDePagamentoID(funcionarioOutputOne.getIdFolha());
 
             if (funcionarioInput != null) {
-                boolean buttonCofirmClick = showFXMLAnchorPaneCadastrosClientesDialog(funcionarioInput);
+                boolean buttonCofirmClick = showFXMLAnchorPaneCadastrosClientesDialog(funcionarioInput, id);
                 if (buttonCofirmClick) {
                     // Envio para Controlador o cadastro Cliente
-                    funcionarioController.criar(funcionarioInput);
+//                    funcionarioController.atualizar(id, funcionarioInput);
                     carregarTableView();
                 }
             }
@@ -192,24 +230,26 @@ public class TelaFuncionarioListaController implements Initializable {
 
 
     // Tela de Editar ou Adicionar Funcionario;
-    private boolean showFXMLAnchorPaneCadastrosClientesDialog(FuncionarioInput funcionario) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(CadastroFuncionarioController.class.getResource("/view/CadastroFuncionario.fxml"));
-        AnchorPane page = (AnchorPane) loader.load();
+    private boolean showFXMLAnchorPaneCadastrosClientesDialog(FuncionarioInput funcionario,
+                                                              @Nullable Long id) throws IOException {
+        Parent root = fxWeaver.loadView(CadastroFuncionarioController.class);
+        // Cast para o tipo correto se necessário (ex: AnchorPane)
+        // AnchorPane root = (AnchorPane) fxWeaver.load("/view/CadastroFuncionario.fxml");
 
-        // Stage do Dialogo.
+        // Crie e configure o Stage como você estava fazendo antes
         Stage dialogStage = new Stage();
         dialogStage.setTitle("Cadastro Funcionario");
-        Scene scene = new Scene(page);
+        dialogStage.getIcons().add(Icon.Image());
+        Scene scene = new Scene(root);
         dialogStage.setScene(scene);
+        dialogStage.initModality(Modality.APPLICATION_MODAL);
 
-        // Setando o Cliente no Controller.
-        CadastroFuncionarioController controller = loader.getController();
+        // Setando o Cliente no Controller
+        CadastroFuncionarioController controller = fxWeaver.getBean(CadastroFuncionarioController.class);
         controller.setDialogStage(dialogStage);
-        controller.setFuncionario(funcionario);
-        System.out.println("Funcionario foi setado" + funcionario);
+        controller.setFuncionario(funcionario, id);
 
-        // Mostrar Dialog e esperar pela confirmação ou cancelação.
+        // Mostrar Dialog e esperar pela confirmação ou cancelação
         dialogStage.showAndWait();
 
         return controller.isButtonConfirmClick();

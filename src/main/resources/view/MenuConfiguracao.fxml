@@ -31,7 +31,7 @@
             </SVGPath>
             <ImageView fitHeight="82.0" fitWidth="45.0" layoutX="6.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@rh-scaled.png" />
+                  <Image url="@public/rh-scaled.png" />
                </image>
             </ImageView>
             <Separator layoutX="12.0" layoutY="337.0" prefHeight="6.0" prefWidth="32.0" AnchorPane.bottomAnchor="57.0" />

@@ -1,11 +1,15 @@
 package com.rhpro.javafx.controllers;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import com.rhpro.controllers.FuncionarioController;
+import jakarta.annotation.Nullable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.rhpro.dto.inputs.FuncionarioInput;
 import javafx.fxml.FXML;
@@ -14,9 +18,26 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import lombok.Data;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+/**
+ * FXML Controller class
+ *
+ * @author Is Whatever
+ */
 @Data
-public class CadastroFuncionarioController implements Initializable{
+@Component
+@FxmlView("/view/CadastroFuncionario.fxml")
+public class CadastroFuncionarioController implements Initializable {
+
+    @Autowired
+    private FuncionarioController funcionarioController;
+
+    @Autowired
+    private FxWeaver fxWeaver;
 
     @FXML
     private TextField textFieldNome;
@@ -36,13 +57,17 @@ public class CadastroFuncionarioController implements Initializable{
     private SVGPath buttonCancelar;
     @FXML
     private TextField textFieldIrf;
+    @FXML
+    private Label idFuncionario;
+    @FXML
+    private Label idFolha;
 
     private Stage dialogStage;
     private boolean buttonConfirmClick = false;
     private FuncionarioInput funcionario;
 
 
-    public void setFuncionario(FuncionarioInput funcionario){
+    public void setFuncionario(FuncionarioInput funcionario, @Nullable Long id){
         // Set para preencher os campos caso for editar um funcionario existente.
         this.funcionario = funcionario;
         this.textFieldNome.setText(funcionario.getNome());
@@ -52,15 +77,18 @@ public class CadastroFuncionarioController implements Initializable{
         this.textFieldIrf.setText(String.valueOf(funcionario.getPorcentagemIRF()));
         this.textFieldSalario.setText(String.valueOf(funcionario.getSalarioHora()));
         this.datePickerDataNasc.setValue(funcionario.getDataDeNascimento());
+        this.idFuncionario.setText(longParaString(id));
+        this.idFolha.setText(longParaString(funcionario.getFolhaDePagamentoID()));
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        idFuncionario.setVisible(false);
+        idFolha.setVisible(false);
     }
 
-    public void handleButtonCofirm(){
+    public void handleButtonCofirm() throws IOException {
         // Validação
         if(validarDadosFuncionario()) {
             // Instanciando o Funcionario e enviado ao controlador
@@ -69,14 +97,17 @@ public class CadastroFuncionarioController implements Initializable{
                     .sobrenome(textFieldSobrenome.getText())
                     .cpf(textFieldCpf.getText())
                     .emailCorporativo(textFieldEmail.getText())
-                    .folhaDePagamentoID(null)
+                    .folhaDePagamentoID(pegarIdFolha())
                     .salarioHora(new BigDecimal(textFieldSalario.getText()))
                     .dataDeNascimento(datePickerDataNasc.getValue())
                     .porcentagemIRF(new BigDecimal(textFieldIrf.getText()))
                     .build();
+            this.atualizarOuCriar(funcionarioInput, pegarIdDaLabel());
             buttonConfirmClick = true;
             dialogStage.close();
         }
+        TelaFuncionarioListaController telaLista = fxWeaver.getBean(TelaFuncionarioListaController.class);
+        telaLista.carregarTableView();
 
     }
     public void handleButtonCancel(){
@@ -108,8 +139,14 @@ public class CadastroFuncionarioController implements Initializable{
             errorMsg += "Data de Nascimento Inválido!\n";
         }
 
-        if(errorMsg.isEmpty())
+        if(errorMsg.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmado");
+            alert.setHeaderText("Ação feita com sucesso!");
+            alert.setContentText("Ação realizada com sucesso");
+            alert.show();
             return true;
+        }
         else{
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Erro no Cadastro");
@@ -117,6 +154,36 @@ public class CadastroFuncionarioController implements Initializable{
             alert.setContentText(errorMsg);
             alert.show();
             return false;
+        }
+    }
+
+    private void atualizarOuCriar(FuncionarioInput funcionarioInput, Long id) {
+        if(id == null) {
+            funcionarioController.criar(funcionarioInput);
+        } else {
+            funcionarioController.atualizar(id, funcionarioInput);
+        }
+    }
+
+    private String longParaString(Long valor) {
+        if(valor == null) {
+            return "";
+        }
+        return String.valueOf(valor);
+    }
+
+    private Long pegarIdFolha() {
+        if(idFolha.getText() == null || idFolha.getText().isEmpty()) {
+            return null;
+        }
+        return Long.parseLong(idFolha.getText());
+    }
+
+    private Long pegarIdDaLabel() {
+        if(idFuncionario.getText() == null || idFuncionario.getText().isEmpty()) {
+            return null;
+        } else {
+            return Long.parseLong(idFuncionario.getText());
         }
     }
 }

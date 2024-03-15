@@ -35,6 +35,7 @@ public class PontoControllerImpl implements PontoController {
 
     @Override
     public void criar(PontoInput pontoInput) {
+        System.out.println(pontoInput);
         pontoService.criar(pontoInput);
     }
 

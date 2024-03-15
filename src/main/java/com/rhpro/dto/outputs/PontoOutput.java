@@ -17,11 +17,11 @@ public class PontoOutput {
 
     private Long id;
 
-    private LocalDate data;
+    private String data;
 
-    private LocalTime horaChegada;
+    private String horaChegada;
 
-    private LocalTime horaSaida;
+    private String horaSaida;
 
     private BigDecimal horasTrabalhadas;
 

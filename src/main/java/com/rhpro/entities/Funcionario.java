@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -41,5 +42,12 @@ public class Funcionario {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "folha_de_pagamento_id")
     private FolhaDePagamento folhaDePagamento;
+
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "funcionario")
+    private List<Ponto> pontos;
+
+    public void mudarIdFolha(Long id) {
+        this.folhaDePagamento.setId(id);
+    }
 
 }

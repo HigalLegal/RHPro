@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="59.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../rh-scaled.png" />
+                  <Image url="@public/rh-scaled.png" />
                </image>
             </ImageView>
          </children>

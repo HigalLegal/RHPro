@@ -28,8 +28,7 @@ public class Ponto {
     @Column(nullable = false, name = "hora_saida")
     private LocalDateTime horaSaida;
 
-    @OneToOne
-    @JoinColumn(name = "funcionario_id")
+    @ManyToOne
     private Funcionario funcionario;
 
     public BigDecimal calcularHoraTrabalhadaPorDia() {

@@ -7,11 +7,17 @@ import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import lombok.Data;
 import javafx.scene.control.Label;
+import net.rgielen.fxweaver.core.FxmlView;
+import org.springframework.stereotype.Component;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 @Data
+@Component
+@FxmlView("/view/ConfirmacaoDeletarFuncionario.fxml")
 public class ConfirmacaoDeletarFuncionario implements Initializable {
+
     @FXML
     private Label textFuncionario;
     @FXML
@@ -22,12 +28,13 @@ public class ConfirmacaoDeletarFuncionario implements Initializable {
     private Stage dialogStage;
     private boolean buttonConfirmClick = false;
     private FuncionarioInput funcionario;
+    private Long id;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    public void handleButtonConfirmar(){
+    public void handleButtonConfirmar() {
         buttonConfirmClick = true;
         dialogStage.close();
     }

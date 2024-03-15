@@ -9,24 +9,21 @@ import com.rhpro.repositories.FuncionarioRepository;
 import com.rhpro.services.FuncionarioService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class FuncionarioServiceImpl implements FuncionarioService {
 
-    private final FuncionarioRepository funcionarioRepository;
+    @Autowired
+    private FuncionarioRepository funcionarioRepository;
 
-    private final FuncionarioMapper funcionarioMapper;
-
-    public FuncionarioServiceImpl(FuncionarioRepository funcionarioRepository,
-                                  FuncionarioMapper funcionarioMapper) {
-        this.funcionarioRepository = funcionarioRepository;
-        this.funcionarioMapper = funcionarioMapper;
-    }
+    @Autowired
+    private FuncionarioMapper funcionarioMapper;
 
     @Override
     public List<FuncionarioOutputAll> listarTodos() {
@@ -58,6 +55,7 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     }
 
     @Override
+    @Transactional
     public void atualizar(Long id, FuncionarioInput funcionarioInput) {
 
         boolean existente = funcionarioRepository.existsById(id);
@@ -65,7 +63,6 @@ public class FuncionarioServiceImpl implements FuncionarioService {
         if(!existente) {
             throw new EntityNotFoundException("Registro inexistente");
         }
-
 
         Funcionario funcionario = funcionarioMapper.paraEntidade(funcionarioInput);
         funcionario.setId(id);
@@ -78,4 +75,12 @@ public class FuncionarioServiceImpl implements FuncionarioService {
     public void deletar(Long id) {
         funcionarioRepository.deleteById(id);
     }
+
+//    private Long idFolha(Long idFuncionario) {
+//        return funcionarioRepository
+//                .findById(idFuncionario)
+//                .get()
+//                .getFolhaDePagamento()
+//                .getId();
+//    }
 }

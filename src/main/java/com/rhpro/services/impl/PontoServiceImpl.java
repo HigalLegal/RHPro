@@ -53,7 +53,11 @@ public class PontoServiceImpl implements PontoService {
 
     @Override
     public void criar(PontoInput pontoInput) {
-        pontoRepository.save(pontoMapper.paraEntidade(pontoInput));
+        Ponto ponto = pontoMapper.paraEntidade(pontoInput);
+
+        System.out.println(ponto);
+
+        pontoRepository.save(ponto);
     }
 
     @Override
