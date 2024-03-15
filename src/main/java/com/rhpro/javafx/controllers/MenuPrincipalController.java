@@ -31,8 +31,8 @@ public class MenuPrincipalController implements Initializable {
     private Button menuPrincipalPresenca;
     @FXML
     private Button menuPrincipalPagamento;
-    @FXML
-    private Button menuPrincipalConfiguracoes;
+//    @FXML
+//    private Button menuPrincipalConfiguracoes;
     @FXML
     private AnchorPane menuPrincipal;
 
@@ -68,12 +68,12 @@ public class MenuPrincipalController implements Initializable {
         menuPrincipal.getChildren().setAll(a);
     }
 
-    @FXML // Ação para tela de Configuração
-    public void handleMenuConfig() throws IOException {
-//        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/MenuConfiguracao.fxml"));
-        AnchorPane a = (AnchorPane) fxWeaver.loadView(MenuConfiguracao.class);
-        // Ultilitario para dimensionar a tela // Funciona para Resposividade da tela.
-        AnchorPaneUtils.setAnchorPane(a);
-        menuPrincipal.getChildren().setAll(a);
-    }
+//    @FXML // Ação para tela de Configuração
+//    public void handleMenuConfig() throws IOException {
+////        AnchorPane a = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/MenuConfiguracao.fxml"));
+//        AnchorPane a = (AnchorPane) fxWeaver.loadView(MenuConfiguracao.class);
+//        // Ultilitario para dimensionar a tela // Funciona para Resposividade da tela.
+//        AnchorPaneUtils.setAnchorPane(a);
+//        menuPrincipal.getChildren().setAll(a);
+//    }
 }
